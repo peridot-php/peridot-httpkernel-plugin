@@ -1,16 +1,16 @@
-Peridot Silex Plugin
-====================
+Peridot HttpKernel Plugin
+=========================
 
-[![Build Status](https://travis-ci.org/peridot-php/peridot-silex-plugin.png)](https://travis-ci.org/peridot-php/peridot-silex-plugin) [![HHVM Status](http://hhvm.h4cc.de/badge/peridot-php/peridot-silex-plugin.svg)](http://hhvm.h4cc.de/package/peridot-php/peridot-silex-plugin)
+[![Build Status](https://travis-ci.org/peridot-php/peridot-httpkernel-plugin.png)](https://travis-ci.org/peridot-php/peridot-httpkernel-plugin) [![HHVM Status](http://hhvm.h4cc.de/badge/peridot-php/peridot-httpkernel-plugin.svg)](http://hhvm.h4cc.de/package/peridot-php/peridot-httpkernel-plugin)
 
-Easily test [Silex](http://silex.sensiolabs.org/) applications with [Peridot](http://peridot-php.github.io/).
+Easily test [HttpKernel](http://symfony.com/doc/current/components/http_kernel/introduction.html) applications with [Peridot](http://peridot-php.github.io/).
 
 ##Usage
 
 We recommend installing this plugin to your project via composer:
 
 ```
-$ composer require --dev peridot-php/peridot-silex-plugin:~1.0
+$ composer require --dev peridot-php/peridot-httpkernel-plugin:~1.0
 ```
 
 You can register the plugin via your [peridot.php](http://peridot-php.github.io/#plugins) file.
@@ -18,11 +18,11 @@ You can register the plugin via your [peridot.php](http://peridot-php.github.io/
 ```php
 <?php
 use Evenement\EventEmitterInterface;
-use Peridot\Plugin\Silex\SilexPlugin;
+use Peridot\Plugin\HttpKernel\HttpKernelPlugin;
 
 return function(EventEmitterInterface $emitter) {
     //the second argument expects an HttpKernelInterface or a function that returns one
-    SilexPlugin::register($emitter, include __DIR__ . '/app.php');
+    HttpKernelPlugin::register($emitter, include __DIR__ . '/app.php');
 };
 ```
 
@@ -59,17 +59,17 @@ Don't want a client in all of your tests? No problem.
 
 ###Using on a test by test basis
 
-Like any other peridot [scope](http://peridot-php.github.io/#scopes), you can mix the `SilexScope` provided by this plugin
+Like any other peridot [scope](http://peridot-php.github.io/#scopes), you can mix the `HttpKernelScope` provided by this plugin
 on a test by test, or suite by suite basis.
 
 ```php
 <?php
-use Peridot\Plugin\Silex\SilexScope;
+use Peridot\Plugin\HttpKernel\HttpKernelScope;
 
 describe('Api', function() {
 
-    //here we manually mixin the silex scope
-    $scope = new SilexScope(include __DIR__ . '/../app.php');
+    //here we manually mixin the http kernel scope
+    $scope = new HttpKernelScope(include __DIR__ . '/../app.php');
     $this->peridotAddChildScope($scope);
 
     describe('/author', function() {
@@ -89,15 +89,15 @@ If `$this->client` is a little too generic for your tastes, both the scope and p
 you set this.
 
 ```php
-SilexPlugin::register($emitter, include __DIR__ . '/app.php', "browser");
-$scope = new SilexScope($application, "browser");
+HttpKernelPlugin::register($emitter, include __DIR__ . '/app.php', "browser");
+$scope = new HttpKernelScope($application, "browser");
 ```
 
 Your tests now become:
 
 ```php
 <?php
-use Peridot\Plugin\Silex\SilexScope;
+use Peridot\Plugin\HttpKernel\HttpKernelScope;
 
 describe('Api', function() {
 
@@ -114,7 +114,7 @@ describe('Api', function() {
 
 ##Example specs
 
-This repo comes with a sample Silex application that is tested with this plugin.
+This repo comes with a sample [Silex](http://silex.sensiolabs.org/) application that is tested with this plugin.
 
 To test examples that are using the plugin, run the following:
 

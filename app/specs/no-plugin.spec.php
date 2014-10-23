@@ -1,6 +1,6 @@
 <?php
 /**
- * This spec demonstrates a manual use of the SilexScope in
+ * This spec demonstrates a manual use of the HttpKernelScope in
  * case you don't want to register the plugin for all tests. Run this
  * without a configuration file.
  */
@@ -8,7 +8,7 @@ use Peridot\Plugin\HttpKernel\HttpKernelScope;
 
 describe('Api', function() {
 
-    //here we manually mixin the silex scope
+    //here we manually mixin the http kernel scope
     $scope = new HttpKernelScope(include __DIR__ . '/../app.php');
     $this->peridotAddChildScope($scope);
 
