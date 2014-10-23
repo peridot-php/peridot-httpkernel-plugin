@@ -8,8 +8,8 @@ use Peridot\Plugin\Silex\SilexScope;
 
 describe('Api', function() {
 
-    $app = include __DIR__ . '/../app.php';
-    $scope = new SilexScope($app);
+    //here we manually mixin the silex scope
+    $scope = new SilexScope(include __DIR__ . '/../app.php');
     $this->peridotAddChildScope($scope);
 
     describe('/info', function() {
