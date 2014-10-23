@@ -6,6 +6,13 @@ Peridot Silex Plugin
 Easily test [Silex](http://silex.sensiolabs.org/) applications with [Peridot](http://peridot-php.github.io/).
 
 ##Usage
+
+We recommend installing this plugin to your project via composer:
+
+```
+$ composer require peridot-php/peridot-silex-plugin:~1.0
+```
+
 You can register the plugin via your [peridot.php](http://peridot-php.github.io/#plugins) file.
 
 ```php
