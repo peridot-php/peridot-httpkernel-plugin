@@ -1,10 +1,11 @@
 <?php
 namespace Peridot\Plugin\Silex;
 
+use Peridot\Core\Scope;
 use Symfony\Component\HttpKernel\Client;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SilexScope
+class SilexScope extends Scope
 {
     /**
      * @var \Symfony\Component\HttpKernel\HttpKernelInterface
