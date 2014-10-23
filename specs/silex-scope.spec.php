@@ -5,12 +5,18 @@ use Symfony\Component\HttpKernel\Client;
 
 describe("SilexScope", function() {
     describe("construction", function() {
-        it("should be constructed with a factory function that returns an HttpKernelInterface", function() {
+        it("can use a factory function that returns an HttpKernelInterface", function() {
             $application = new Application();
             $scope = new SilexScope(function() use ($application) {
                 return $application;
             });
             assert($scope->getSilexApplication() === $application, "factory should have returned application");
+        });
+
+        it("can use an instantiated HttpKernelInterface", function() {
+            $application = new Application();
+            $scope = new SilexScope($application);
+            assert($scope->getSilexApplication() === $application, "application should be same as that passed in");
         });
 
         context('when the callable returns something other than a kernel', function() {
@@ -47,6 +53,18 @@ describe("SilexScope", function() {
                     return $this->application;
                 }, "browser");
                 assert($scope->browser instanceof Client, "browser property should be instance of Client");
+            });
+        });
+
+        context("when passing in an object", function() {
+            it("should throw a RuntimeException if it is not an HttpKernelInterface", function() {
+                $exception = null;
+                try {
+                    new SilexScope(new ArrayObject());
+                } catch (RuntimeException $e) {
+                    $exception = $e;
+                }
+                assert(!is_null($exception), "should have thrown exception for wrong object type");
             });
         });
     });

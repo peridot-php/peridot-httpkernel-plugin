@@ -12,13 +12,16 @@ class SilexScope
     protected $silexApplication;
 
     /**
-     * @param callable $factory
+     * @param callable|HttpKernelInterface $factory
      */
-    public function __construct(callable $factory, $property = "client")
+    public function __construct($factory, $property = "client")
     {
-        $silexApplication = call_user_func($factory);
+        $silexApplication = $factory;
+        if (is_callable($factory)) {
+            $silexApplication = call_user_func($factory);
+        }
         if (!$silexApplication instanceof HttpKernelInterface) {
-            throw new \RuntimeException("SilexScope factory must return an HttpKernelInterface");
+            throw new \RuntimeException("SilexScope construction requires an HttpKernelInterface");
         }
         $this->silexApplication = $silexApplication;
         $this->setHttpKernelClient(new Client($this->silexApplication), $property);
