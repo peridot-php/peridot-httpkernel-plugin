@@ -5,6 +5,12 @@ Peridot HttpKernel Plugin
 
 Easily test [HttpKernel](http://symfony.com/doc/current/components/http_kernel/introduction.html) applications with [Peridot](http://peridot-php.github.io/).
 
+Some HttpKernel based frameworks:
+
+* [Silex](http://silex.sensiolabs.org/)
+* [Laravel] (http://laravel.com/)
+* [Symfony2] (http://symfony.com/what-is-symfony)
+
 ##Usage
 
 We recommend installing this plugin to your project via composer:
