@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Client;
 
 describe('SilexPlugin', function() {
     beforeEach(function() {
-        $this->application = new Application();
+        $this->application = include __DIR__ . '/../app/app.php';
         $this->emitter = new EventEmitter();
         $this->plugin = new SilexPlugin($this->emitter, $this->application);
     });
