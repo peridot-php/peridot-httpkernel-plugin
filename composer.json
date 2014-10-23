@@ -1,6 +1,6 @@
 {
     "name": "peridot-php/peridot-silex-plugin",
-    "description": "A perdiot plugin to simplify testing silex applications",
+    "description": "A Peridot plugin to simplify testing silex applications",
     "license": "MIT",
     "authors": [
         {
