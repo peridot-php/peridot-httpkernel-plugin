@@ -1,15 +1,15 @@
 <?php
 use Evenement\EventEmitter;
-use Peridot\Plugin\Silex\SilexPlugin;
+use Peridot\Plugin\HttpKernel\HttpKernelPlugin;
 use Peridot\Runner\Context;
 use Silex\Application;
 use Symfony\Component\HttpKernel\Client;
 
-describe('SilexPlugin', function() {
+describe('HttpKernelPlugin', function() {
     beforeEach(function() {
         $this->application = include __DIR__ . '/../app/app.php';
         $this->emitter = new EventEmitter();
-        $this->plugin = new SilexPlugin($this->emitter, $this->application);
+        $this->plugin = new HttpKernelPlugin($this->emitter, $this->application);
     });
 
     describe('->onRunnerStart()', function() {

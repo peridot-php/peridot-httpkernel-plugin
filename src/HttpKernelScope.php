@@ -1,49 +1,49 @@
 <?php
-namespace Peridot\Plugin\Silex;
+namespace Peridot\Plugin\HttpKernel;
 
 use Peridot\Core\Scope;
 use Symfony\Component\HttpKernel\Client;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SilexScope extends Scope
+class HttpKernelScope extends Scope
 {
     /**
      * @var \Symfony\Component\HttpKernel\HttpKernelInterface
      */
-    protected $silexApplication;
+    protected $httpKernelApplication;
 
     /**
      * @param callable|HttpKernelInterface $factory
      */
     public function __construct($factory, $property = "client")
     {
-        $silexApplication = $factory;
+        $httpKernelApplication = $factory;
         if (is_callable($factory)) {
-            $silexApplication = call_user_func($factory);
+            $httpKernelApplication = call_user_func($factory);
         }
-        if (!$silexApplication instanceof HttpKernelInterface) {
+        if (!$httpKernelApplication instanceof HttpKernelInterface) {
             throw new \RuntimeException("SilexScope construction requires an HttpKernelInterface");
         }
-        $this->silexApplication = $silexApplication;
-        $this->setHttpKernelClient(new Client($this->silexApplication), $property);
+        $this->httpKernelApplication = $httpKernelApplication;
+        $this->setHttpKernelClient(new Client($this->httpKernelApplication), $property);
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $silexApplication
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernelApplication
      */
-    public function setSilexApplication(HttpKernelInterface $silexApplication)
+    public function setHttpKernelApplication(HttpKernelInterface $httpKernelApplication)
     {
-        $this->silexApplication = $silexApplication;
-        $this->setHttpKernelClient(new Client($silexApplication));
+        $this->httpKernelApplication = $httpKernelApplication;
+        $this->setHttpKernelClient(new Client($httpKernelApplication));
         return $this;
     }
 
     /**
      * @return \Symfony\Component\HttpKernel\HttpKernelInterface
      */
-    public function getSilexApplication()
+    public function getHttpKernelApplication()
     {
-        return $this->silexApplication;
+        return $this->httpKernelApplication;
     }
 
     /**

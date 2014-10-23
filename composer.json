@@ -1,6 +1,6 @@
 {
-    "name": "peridot-php/peridot-silex-plugin",
-    "description": "A Peridot plugin to simplify testing silex applications",
+    "name": "peridot-php/peridot-httpkernel-plugin",
+    "description": "A Peridot plugin to simplify testing HttpKernel applications",
     "license": "MIT",
     "authors": [
         {
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Peridot\\Plugin\\Silex\\": "src/"
+            "Peridot\\Plugin\\HttpKernel\\": "src/"
         }
     },
     "require-dev": {

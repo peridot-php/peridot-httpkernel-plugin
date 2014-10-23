@@ -1,11 +1,11 @@
 <?php
-namespace Peridot\Plugin\Silex;
+namespace Peridot\Plugin\HttpKernel;
 
 use Evenement\EventEmitterInterface;
 use Peridot\Runner\Context;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SilexPlugin
+class HttpKernelPlugin
 {
     /**
      * @var EventEmitterInterface
@@ -13,7 +13,7 @@ class SilexPlugin
     protected $emitter;
 
     /**
-     * @var SilexScope
+     * @var HttpKernelScope
      */
     protected $scope;
 
@@ -25,11 +25,11 @@ class SilexPlugin
     public function __construct(EventEmitterInterface $emitter, $factory, $property = "client")
     {
         $this->emitter = $emitter;
-        $this->scope = new SilexScope($factory, $property);
+        $this->scope = new HttpKernelScope($factory, $property);
     }
 
     /**
-     * When the runner starts we will mix in the silex scope into the root suite,
+     * When the runner starts we will mix in the http kernel scope into the root suite,
      * thereby making it available EVERYWHERE.
      */
     public function onRunnerStart()

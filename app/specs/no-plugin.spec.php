@@ -4,12 +4,12 @@
  * case you don't want to register the plugin for all tests. Run this
  * without a configuration file.
  */
-use Peridot\Plugin\Silex\SilexScope;
+use Peridot\Plugin\HttpKernel\HttpKernelScope;
 
 describe('Api', function() {
 
     //here we manually mixin the silex scope
-    $scope = new SilexScope(include __DIR__ . '/../app.php');
+    $scope = new HttpKernelScope(include __DIR__ . '/../app.php');
     $this->peridotAddChildScope($scope);
 
     describe('/info', function() {

@@ -1,7 +1,7 @@
 <?php
 use Evenement\EventEmitterInterface;
-use Peridot\Plugin\Silex\SilexPlugin;
+use Peridot\Plugin\HttpKernel\HttpKernelPlugin;
 
 return function(EventEmitterInterface $emitter) {
-    SilexPlugin::register($emitter, include __DIR__ . '/app.php');
+    HttpKernelPlugin::register($emitter, include __DIR__ . '/app.php');
 };

@@ -1,29 +1,29 @@
 <?php
-use Peridot\Plugin\Silex\SilexScope;
+use Peridot\Plugin\HttpKernel\HttpKernelScope;
 use Silex\Application;
 use Symfony\Component\HttpKernel\Client;
 
-describe("SilexScope", function() {
+describe("HttpKernelScope", function() {
     describe("construction", function() {
         it("can use a factory function that returns an HttpKernelInterface", function() {
             $application = new Application();
-            $scope = new SilexScope(function() use ($application) {
+            $scope = new HttpKernelScope(function() use ($application) {
                 return $application;
             });
-            assert($scope->getSilexApplication() === $application, "factory should have returned application");
+            assert($scope->getHttpKernelApplication() === $application, "factory should have returned application");
         });
 
         it("can use an instantiated HttpKernelInterface", function() {
             $application = new Application();
-            $scope = new SilexScope($application);
-            assert($scope->getSilexApplication() === $application, "application should be same as that passed in");
+            $scope = new HttpKernelScope($application);
+            assert($scope->getHttpKernelApplication() === $application, "application should be same as that passed in");
         });
 
         context('when the callable returns something other than a kernel', function() {
             it("should throw a RuntimeException", function() {
                 $exception = null;
                 try {
-                    $scope = new SilexScope(function() {
+                    $scope = new HttpKernelScope(function() {
                         return "Application!!!!";
                     });
                 } catch (RuntimeException $e) {
@@ -38,7 +38,7 @@ describe("SilexScope", function() {
             beforeEach(function() {
                 $application = new Application();
                 $this->application = $application;
-                $this->scope = new SilexScope(function() {
+                $this->scope = new HttpKernelScope(function() {
                     return $this->application;
                 });
             });
@@ -49,7 +49,7 @@ describe("SilexScope", function() {
             });
 
             it("should allow configuring client property name", function() {
-                $scope = new SilexScope(function() {
+                $scope = new HttpKernelScope(function() {
                     return $this->application;
                 }, "browser");
                 assert($scope->browser instanceof Client, "browser property should be instance of Client");
@@ -60,7 +60,7 @@ describe("SilexScope", function() {
             it("should throw a RuntimeException if it is not an HttpKernelInterface", function() {
                 $exception = null;
                 try {
-                    new SilexScope(new ArrayObject());
+                    new HttpKernelScope(new ArrayObject());
                 } catch (RuntimeException $e) {
                     $exception = $e;
                 }
@@ -69,23 +69,23 @@ describe("SilexScope", function() {
         });
     });
 
-    describe("->setSilexApplication()", function() {
+    describe("->setHttpKernelApplication()", function() {
         it("should set the scope's application property", function() {
             $application = new Application();
-            $scope = new SilexScope(function() {
+            $scope = new HttpKernelScope(function() {
                 return new Application();
             });
-            $scope->setSilexApplication($application);
-            assert($scope->getSilexApplication() === $application, "setter should have set application");
+            $scope->setHttpKernelApplication($application);
+            assert($scope->getHttpKernelApplication() === $application, "setter should have set application");
         });
 
         it("should update the client property", function() {
             $application = new Application();
-            $scope = new SilexScope(function() {
+            $scope = new HttpKernelScope(function() {
                 return new Application();
             });
             $oldClient = $scope->client;
-            $scope->setSilexApplication($application);
+            $scope->setHttpKernelApplication($application);
             $newClient = $scope->client;
             assert($newClient instanceof Client, "new client should be instance of Client");
             assert($newClient !== $oldClient, "clients should not be the same");
