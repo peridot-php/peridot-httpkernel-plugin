@@ -39,6 +39,14 @@ class HttpKernelPlugin
     }
 
     /**
+     * @return HttpKernelScope
+     */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+    /**
      * @param EventEmitterInterface $emitter
      * @param HttpKernelInterface|callable  $factory
      */
